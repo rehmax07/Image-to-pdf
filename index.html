@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageToPDF Converter - Premium</title>
+    <meta name="description" content="Free online tool to convert images to PDF with advanced options. High quality, beautiful design.">
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="glass-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-file-pdf gradient-text"></i>
+                    <h1>ImageToPDF</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li>
+                            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero fade-in">
+            <h2 class="gradient-text">Convert Images to PDF in Seconds</h2>
+            <p>Seamlessly transform your JPG, PNG, and GIF files into polished PDF documents. No registration, pure performance.</p>
+        </section>
+
+        <div class="main-content slide-up">
+            <div class="left-panel">
+                <section class="upload-section card">
+                    <h3 class="section-title">Upload Images</h3>
+                    <div class="upload-area" id="dropArea">
+                        <div class="upload-icon-wrapper">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p>Drag & drop images here</p>
+                        <span class="text-sm">or</span>
+                        <button class="btn btn-outline mt-2" id="browseBtn">Browse Files</button>
+                        <input type="file" id="fileInput" class="file-input" multiple accept="image/*">
+                    </div>
+
+                    <div class="image-list" id="imageList">
+                        <!-- Images dynamically added here -->
+                    </div>
+                </section>
+            </div>
+
+            <div class="right-panel">
+                <section class="options-section card">
+                    <h3 class="section-title">PDF Configuration</h3>
+                    
+                    <div class="option-group">
+                        <label class="option-title">Page Layout</label>
+                        <select id="pageLayout" class="custom-select">
+                            <option value="single">Single image per page</option>
+                            <option value="double">Two images per page (spread)</option>
+                            <option value="grid">Grid layout (2x2 images)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-title">Page Size</label>
+                        <select id="pageSize" class="custom-select">
+                            <option value="a4">A4 (210 × 297 mm)</option>
+                            <option value="letter">Letter (8.5 × 11 in)</option>
+                            <option value="legal">Legal (8.5 × 14 in)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-title">Border Settings</label>
+                        <div class="range-container">
+                            <label class="range-label">Width</label>
+                            <input type="range" id="borderSize" min="0" max="20" value="0">
+                            <span id="borderSizeValue" class="range-value">0px</span>
+                        </div>
+                        <div class="color-picker-container mt-2">
+                            <label>Color</label>
+                            <input type="color" id="borderColor" value="#000000" class="custom-color-picker">
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-title">Image Quality</label>
+                        <div class="range-container">
+                            <input type="range" id="quality" min="10" max="100" value="80">
+                            <span id="qualityValue" class="range-value">80%</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <div class="checkbox-container">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="addWatermark">
+                                <span class="checkmark"></span>
+                                Add watermark to PDF
+                            </label>
+                        </div>
+                        
+                        <div id="watermarkOptions" class="watermark-options" style="display: none;">
+                            <input type="text" id="watermarkText" class="custom-input mt-2" placeholder="Enter watermark text">
+                            <div class="color-picker-container mt-2">
+                                <label>Text Color</label>
+                                <input type="color" id="watermarkColor" value="#cccccc" class="custom-color-picker">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="preview-section card mt-4">
+                    <div class="actions">
+                        <button class="btn btn-primary w-full" id="generateBtn">
+                            <i class="fas fa-cog"></i> Generate PDF
+                        </button>
+                    </div>
+                    
+                    <div class="preview-container mt-4" id="previewContainer">
+                        <div class="empty-state">
+                            <i class="far fa-file-pdf"></i>
+                            <p>Ready to generate.</p>
+                        </div>
+                    </div>
+
+                    <div class="actions mt-4">
+                        <button class="btn btn-success w-full" id="downloadBtn" disabled>
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <section id="features" class="features-section fade-in">
+            <h2 class="section-title text-center">Engineered for Excellence</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Local Processing</h3>
+                    <p>Total privacy. Your files never leave your device.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized algorithms convert your images instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Pro Controls</h3>
+                    <p>Fine-tune layouts, quality, margins, and watermarks.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2><i class="fas fa-file-pdf"></i> ImageToPDF</h2>
+                    <p>The premium choice for image conversion.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="mailto:support@imagetopdf.com">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ImageToPDF Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
